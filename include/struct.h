@@ -1,10 +1,9 @@
 #ifndef SHADY_STRUCT
 #define SHADY_STRUCT
 
-typedef struct shadyLogs shadyLogs;
-struct shadyLogs {
+typedef struct {
   char *uri;
-  shadyLogs *next;
-};
+  struct shadyLogs *next;
+} shadyLogs;
 
 #endif

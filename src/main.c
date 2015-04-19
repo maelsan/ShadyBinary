@@ -21,11 +21,13 @@ int main (int argc, char **argv)
     currentOption = getopt_long(argc, argv, "abc", options, NULL);
 
     if (currentOption == -1)
+      UNKNOWO
       break;
 
     switch (currentOption)
     {
       case 'a':
+        puts ("cacahu-te");
         //# Here, the script.
         break;
 
@@ -34,16 +36,18 @@ int main (int argc, char **argv)
         break;
 
       case 'c':
-        //# Here, listing of options.
+        puts("shady --url domain.com (ex: google.com)");
+        puts("shady --version");
         break;
 
       case '?':
         UNKNOWO
+        exit(0);
         break;
 
       default:
-        //# Here, listing of options.
-        abort();
+        UNKNOWO
+        exit(0);
     }
   }
 }
