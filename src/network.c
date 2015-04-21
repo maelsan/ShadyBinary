@@ -1,9 +1,10 @@
+#include <curl/curl.h>
 #include "../include/network.h"
 
 int forceUri(char *uri, shadyLogs *results)
 {
-  //# Here, brute-force URI.
-  // ...
+  CURL request;
+  CURLcode result;
 
   return 0;
 }

@@ -11,8 +11,7 @@ int main (int argc, char **argv)
   //# TODO : Logo shady.
   while (1)
   {
-    struct option options[] =
-    {
+    struct option options[] = {
       {"url",      required_argument, 0, 'a'},
       {"version",  no_argument,       0, 'b'},
       {"help",     no_argument,       0, 'c'}
@@ -21,13 +20,10 @@ int main (int argc, char **argv)
     currentOption = getopt_long(argc, argv, "abc", options, NULL);
 
     if (currentOption == -1)
-      UNKNOWO
       break;
 
-    switch (currentOption)
-    {
+    switch (currentOption) {
       case 'a':
-        puts ("cacahu-te");
         //# Here, the script.
         break;
 
