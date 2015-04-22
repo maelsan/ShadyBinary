@@ -1,4 +1,10 @@
-#ifndef SHADY_WORDS
-#define SHADY_WORDS
-
-#endif
+//# TODO: Make a dynamic managing of extensions.
+char *words[7] = {
+  "index.php~",
+  "index.rb~",
+  "index.py~",
+  "index.txt"
+  ".svn",
+  ".git",
+  "admin"
+};
