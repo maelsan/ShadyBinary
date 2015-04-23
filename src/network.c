@@ -9,7 +9,7 @@ int forceUri(char *uri, shadyLogs *results)
 
   if (request && *words) {
     for (c = 0; *(words + c); c++) {
-      curl_easy_setopt(request, CURLOPT_URL, *uri);
+      curl_easy_setopt(request, CURLOPT_URL, strcat(uri, *(words + c)));
       result = curl_easy_perform(request);
       //# Here, the script.
       curl_easy_cleanup(request);
