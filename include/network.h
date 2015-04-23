@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "struct.h"
 #include "const.h"
 
 extern int forceUri(char *uri);
