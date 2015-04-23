@@ -6,7 +6,6 @@ int main (int argc, char **argv)
 {
   int currentOption;
 
-  //# TODO : Logo shady.
   while (1)
   {
     struct option options[] = {
@@ -44,4 +43,6 @@ int main (int argc, char **argv)
         exit(0);
     }
   }
+
+  return 0;
 }

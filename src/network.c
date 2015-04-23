@@ -8,6 +8,9 @@ int forceUri(char *uri)
   int c;
 
   char **saveAddr = NULL;
+
+  // <!!>
+  //
   //# TODO: Dynamic check.
   const char *words[8] = {
     "index.php~",
@@ -35,8 +38,8 @@ int forceUri(char *uri)
         printf("\033[32m[v]\033[m File found : ");
         printf("%s\n", *(words + c));
       }
+      free(*saveAddr);
     }
-    free(*saveAddr);
     curl_easy_cleanup(request);
   }
 
