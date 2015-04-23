@@ -9,12 +9,22 @@ int forceUri(char *uri)
 
   if (request && *words) {
     for (c = 0; *(words + c); c++) {
-      curl_easy_setopt(request, CURLOPT_URL, strcat(uri, *(words + c)));
+
+      char *concatURI = malloc(sizeof(*uri) + sizeof(c));
+
+      strcat(concatURI, uri);
+      strcat(concatURI, *(words + c));
+
+      curl_easy_setopt(request, CURLOPT_URL, concatURI);
       result = curl_easy_perform(request);
-      if (result != CURLE_HTTP_RETURNED_ERROR)
-        puts("\033[32m[x]\033[m File");
-      curl_easy_cleanup(request);
+
+      if (result != CURLE_HTTP_RETURNED_ERROR) {
+        //# strcat(file[0], concatURI);
+        puts("\033[32m[v]\033[m File has found : ...");
+        //# strcpy(file[0], file[1]);
+      }
     }
+    curl_easy_cleanup(request);
   }
 
   return 0;
