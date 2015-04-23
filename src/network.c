@@ -6,12 +6,14 @@ int forceUri(char *uri)
   CURL *request = curl_easy_init();
   CURLcode result;
   int c;
+  char **saveAddr = NULL;
 
   if (request && *words) {
     for (c = 0; *(words + c); c++) {
 
       char *concatURI = malloc(sizeof(*uri) + sizeof(c));
 
+      saveAddr = &concatURI;
       strcat(concatURI, uri);
       strcat(concatURI, *(words + c));
 
@@ -24,6 +26,7 @@ int forceUri(char *uri)
         //# strcpy(file[0], file[1]);
       }
     }
+    free(*saveAddr);
     curl_easy_cleanup(request);
   }
 
