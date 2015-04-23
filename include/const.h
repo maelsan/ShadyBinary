@@ -1,7 +1,7 @@
 #ifndef SHADY_CONST
 #define SHADY_CONST
 
-#define VERSION puts("1.0.0");
+#define VERSION puts("0.0.1");
 
 #define UNKNOWO puts("\033[31m[x]\033[m Use --help for more details.");
 

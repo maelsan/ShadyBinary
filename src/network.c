@@ -8,6 +8,7 @@ int forceUri(char *uri)
   int c;
 
   char **saveAddr = NULL;
+  //# TODO: Dynamic check.
   const char *words[8] = {
     "index.php~",
     "index.rb~",
@@ -31,7 +32,7 @@ int forceUri(char *uri)
       result = curl_easy_perform(request);
 
       if (result != CURLE_HTTP_RETURNED_ERROR) {
-        printf("\033[32m[v]\033[m File has found : ");
+        printf("\033[32m[v]\033[m File found : ");
         printf("%s\n", *(words + c));
       }
     }
