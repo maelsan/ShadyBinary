@@ -22,6 +22,7 @@ int main (int argc, char **argv)
 
     switch (currentOption) {
       case 'a':
+        forceUri("http://google.fr/");
         //# Here, the script.
         break;
 

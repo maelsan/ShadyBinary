@@ -9,6 +9,6 @@
 #include "const.h"
 #include "words.h"
 
-extern int forceUri(char *uri, shadyLogs *results);
+extern int forceUri(char *uri);
 
 #endif
