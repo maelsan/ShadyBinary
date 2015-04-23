@@ -1,6 +1,6 @@
 CC = gcc
 NAME = ./bin/shady
-SRC = ./src/main.c ./src/network.c ./src/words.c
+SRC = ./src/main.c ./src/network.c
 FLAGS = -W -Werror -lcurl
 OBJ = $(SRC:%.c=%.o)
 RM = rm -f

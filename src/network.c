@@ -6,7 +6,17 @@ int forceUri(char *uri)
   CURL *request = curl_easy_init();
   CURLcode result;
   int c;
+
   char **saveAddr = NULL;
+  const char *words[8] = {
+    "index.php~",
+    "index.rb~",
+    "index.py~",
+    "index.txt",
+    ".svn",
+    ".git",
+    "admin"
+  };
 
   if (request && *words) {
     for (c = 0; *(words + c); c++) {
@@ -21,9 +31,8 @@ int forceUri(char *uri)
       result = curl_easy_perform(request);
 
       if (result != CURLE_HTTP_RETURNED_ERROR) {
-        //# strcat(file[0], concatURI);
-        puts("\033[32m[v]\033[m File has found : ...");
-        //# strcpy(file[0], file[1]);
+        printf("\033[32m[v]\033[m File has found : ");
+        printf("%s\n", *(words + c));
       }
     }
     free(*saveAddr);

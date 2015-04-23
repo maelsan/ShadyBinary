@@ -7,7 +7,6 @@
 
 #include "struct.h"
 #include "const.h"
-#include "words.h"
 
 extern int forceUri(char *uri);
 
