@@ -6,7 +6,7 @@ int forceUri(char *uri)
   CURL *request = curl_easy_init();
   CURLcode result;
   long code;
-  int c;
+  int c, i;
 
   char **saveAddr = NULL;
 
@@ -21,6 +21,7 @@ int forceUri(char *uri)
     "/admin/"
   };
 
+  i = 0;
   for (c = 0; *(words + c); c++) {
 
     char *concatURI = malloc(sizeof(*uri) + sizeof(c));
@@ -29,16 +30,18 @@ int forceUri(char *uri)
     strcat(concatURI, uri);
     strcat(concatURI, *(words + c));
 
-    curl_easy_setopt(request, CURLOPT_URL, concatURI);
+    curl_easy_setopt(request, CURLOPT_NOBODY, concatURI);
     result = curl_easy_perform(request);
     curl_easy_getinfo(request, CURLINFO_RESPONSE_CODE, &code);
 
     if (code == 200 && result != CURLE_HTTP_RETURNED_ERROR) {
       printf("\033[32m[v]\033[m Found : ");
       printf("%s\n", *(words + c));
+      i++;
     }
   }
 
+  if (i <= 0) NONERES
   free(*saveAddr);
   curl_easy_cleanup(request);
 
