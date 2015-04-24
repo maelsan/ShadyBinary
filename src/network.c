@@ -5,43 +5,42 @@ int forceUri(char *uri)
 {
   CURL *request = curl_easy_init();
   CURLcode result;
+  long code;
   int c;
 
   char **saveAddr = NULL;
 
-  // <!!>
-  //
   //# TODO: Dynamic check.
   const char *words[8] = {
-    "index.php~",
-    "index.rb~",
-    "index.py~",
-    "index.txt",
-    ".svn",
-    ".git",
-    "admin"
+    "/index.php~",
+    "/index.rb~",
+    "/index.py~",
+    "/index.txt",
+    "/.svn/",
+    "/.git/",
+    "/admin/"
   };
 
-  if (request && *words) {
-    for (c = 0; *(words + c); c++) {
+  for (c = 0; *(words + c); c++) {
 
-      char *concatURI = malloc(sizeof(*uri) + sizeof(c));
+    char *concatURI = malloc(sizeof(*uri) + sizeof(c));
 
-      saveAddr = &concatURI;
-      strcat(concatURI, uri);
-      strcat(concatURI, *(words + c));
+    saveAddr = &concatURI;
+    strcat(concatURI, uri);
+    strcat(concatURI, *(words + c));
 
-      curl_easy_setopt(request, CURLOPT_URL, concatURI);
-      result = curl_easy_perform(request);
+    curl_easy_setopt(request, CURLOPT_URL, concatURI);
+    result = curl_easy_perform(request);
+    curl_easy_getinfo(request, CURLINFO_RESPONSE_CODE, &code);
 
-      if (result != CURLE_HTTP_RETURNED_ERROR) {
-        printf("\033[32m[v]\033[m File found : ");
-        printf("%s\n", *(words + c));
-      }
-      free(*saveAddr);
+    if (code == 200 && result != CURLE_HTTP_RETURNED_ERROR) {
+      printf("\033[32m[v]\033[m Found : ");
+      printf("%s\n", *(words + c));
     }
-    curl_easy_cleanup(request);
   }
+
+  free(*saveAddr);
+  curl_easy_cleanup(request);
 
   return 0;
 }
