@@ -21,6 +21,9 @@ int main (int argc, char **argv)
 
     switch (currentOption) {
       case 'a':
+        //# TODO:
+        // Check syntax.
+        // Check domain available.
         forceUri(*(argv + 2));
         break;
 

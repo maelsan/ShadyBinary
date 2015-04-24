@@ -9,6 +9,5 @@
 #define ERRLINK puts("\033[31m[x]\033[m Unable to connect at this host.");
 
 #define NONERES puts("\033[31m[x]\033[m No results !");
-#define YEAHRES puts("\033[32m[+]\033[m Files were found !");
 
 #endif
