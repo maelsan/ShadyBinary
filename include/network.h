@@ -8,6 +8,6 @@
 
 #include "const.h"
 
-extern int forceUri(char *uri);
+extern void forceUri(char *uri);
 
 #endif

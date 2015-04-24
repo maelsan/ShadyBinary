@@ -1,49 +1,65 @@
 #include <curl/curl.h>
 #include "../include/network.h"
 
-int forceUri(char *uri)
+//# TODO:
+// Add threading for the request.
+
+void forceUri(char *uri)
 {
   CURL *request = curl_easy_init();
-  CURLcode result;
-  long code;
-  int c, i;
-
+  long codeHttp;
+  int buffExt, buffFile, buffFolder, buffResults;
   char **saveAddr = NULL;
 
-  //# TODO: Dynamic check.
-  const char *words[8] = {
-    "/index.php~",
-    "/index.rb~",
-    "/index.py~",
-    "/index.txt",
-    "/.svn/",
-    "/.git/",
-    "/admin/"
-  };
+  const char *files[7] = {"/index", "/test", "/info", "/admin", "/login", "/register", "/install"};
+  const char *ext[6] = {".php~", ".rb~", ".py~", ".txt", ".pdf", ".csv"};
+  const char *folders[5] = {"/.svn/", "/.git/", "/svn/", "/git/", "/admin/"};
 
-  i = 0;
-  for (c = 0; *(words + c); c++) {
+  buffResults = 0;
+  for (buffFile = 0; *(files + buffFile); buffFile++) {
+    for (buffExt = 0; *(ext + buffExt); buffExt++) {
+      char *concatURI = malloc(sizeof(*uri) + sizeof(*(files + buffFile)) + sizeof(*(ext + buffExt)));
 
-    char *concatURI = malloc(sizeof(*uri) + sizeof(c));
+      saveAddr = &concatURI;
+      strcat(concatURI, uri);
+      strcat(concatURI, *(files + buffFile));
+      strcat(concatURI, *(ext + buffExt));
+
+      curl_easy_setopt(request, CURLOPT_NOBODY, concatURI);
+      curl_easy_perform(request);
+      curl_easy_getinfo(request, CURLINFO_RESPONSE_CODE, &codeHttp);
+
+      if (codeHttp == 200 || codeHttp == 403 || (codeHttp >= 300 && codeHttp <= 399)) {
+        printf("\033[32m[v]\033[m Found : ");
+        printf("%s\n", concatURI);
+        buffResults++;
+      }
+      if ((buffExt + 1) == (sizeof(ext) / sizeof(ext[0]))) break;
+    }
+    if ((buffFile + 1) == (sizeof(files) / sizeof(files[0]))) break;
+  }
+  free(*saveAddr);
+
+  for (buffFolder = 0; *(folders + buffFolder); buffFolder++) {
+    char *concatURI = malloc(sizeof(*uri) + sizeof(*(folders + buffFolder)));
 
     saveAddr = &concatURI;
     strcat(concatURI, uri);
-    strcat(concatURI, *(words + c));
+    strcat(concatURI, *(folders + buffFolder));
 
     curl_easy_setopt(request, CURLOPT_NOBODY, concatURI);
-    result = curl_easy_perform(request);
-    curl_easy_getinfo(request, CURLINFO_RESPONSE_CODE, &code);
+    curl_easy_perform(request);
+    curl_easy_getinfo(request, CURLINFO_RESPONSE_CODE, &codeHttp);
 
-    if (code == 200 || code == 403 || (code >= 300 && code <= 399)) {
+    if (codeHttp == 200 || codeHttp == 403 || (codeHttp >= 300 && codeHttp <= 399)) {
       printf("\033[32m[v]\033[m Found : ");
-      printf("%s\n", *(words + c));
-      i++;
+      printf("%s\n", concatURI);
+      buffResults++;
     }
+    if ((buffFolder + 1) == (sizeof(folders) / sizeof(folders[0]))) break;
   }
 
-  if (i <= 0) NONERES
-  free(*saveAddr);
+  if (buffResults <= 0) NONERES
   curl_easy_cleanup(request);
-
-  return 0;
+  free(*saveAddr);
 }

@@ -6,8 +6,6 @@ int main (int argc, char **argv)
 {
   int currentOption;
 
-  sleep(1);
-
   while (1)
   {
     struct option options[] = {
@@ -23,9 +21,10 @@ int main (int argc, char **argv)
 
     switch (currentOption) {
       case 'a':
-        TITLE
-        TITLEDE
         sleep(1);
+        TITLESH
+        TITLEDE
+        sleep(2);
         //# TODO:
         // Check syntax.
         // Check domain available.
@@ -39,19 +38,19 @@ int main (int argc, char **argv)
       case 'c':
         puts("shady --url domain.com (ex: google.com)");
         puts("shady --version");
+        puts("shady --help");
         break;
 
       case '?':
-        sleep(1);
         UNKNOWO
-        exit(0);
         break;
 
       default:
         UNKNOWO
-        exit(0);
     }
   }
+
+  if (optind >= argc) ERRCHOS
 
   return 0;
 }
