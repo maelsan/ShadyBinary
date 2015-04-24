@@ -6,6 +6,8 @@ int main (int argc, char **argv)
 {
   int currentOption;
 
+  sleep(1);
+
   while (1)
   {
     struct option options[] = {
@@ -21,6 +23,9 @@ int main (int argc, char **argv)
 
     switch (currentOption) {
       case 'a':
+        TITLE
+        TITLEDE
+        sleep(1);
         //# TODO:
         // Check syntax.
         // Check domain available.
@@ -37,6 +42,7 @@ int main (int argc, char **argv)
         break;
 
       case '?':
+        sleep(1);
         UNKNOWO
         exit(0);
         break;

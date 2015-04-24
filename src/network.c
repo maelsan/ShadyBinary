@@ -34,7 +34,7 @@ int forceUri(char *uri)
     result = curl_easy_perform(request);
     curl_easy_getinfo(request, CURLINFO_RESPONSE_CODE, &code);
 
-    if (code == 200 && result != CURLE_HTTP_RETURNED_ERROR) {
+    if (code == 200 || code == 403 || (code >= 300 && code <= 399)) {
       printf("\033[32m[v]\033[m Found : ");
       printf("%s\n", *(words + c));
       i++;
