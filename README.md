@@ -3,6 +3,7 @@
 
 ## Installation
 You need to use `make` for generate the binary `shady`.
+
 After, he should be into the `bin` folder.
 
 ## Use
