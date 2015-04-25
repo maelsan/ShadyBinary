@@ -1,11 +1,15 @@
 #include <getopt.h>
+#include <regex.h>
 
 #include "../include/network.h"
 
 int main (int argc, char **argv)
 {
-  int currentOption;
+  regex_t buffRegex;
+  int currentOption, buffOp;
+  const char *domain = "(w{3}\\.)?[a-z0-9]+\\.[a-z]+";
 
+  buffOp = 0;
   while (1)
   {
     struct option options[] = {
@@ -16,18 +20,27 @@ int main (int argc, char **argv)
 
     currentOption = getopt_long(argc, argv, "abc", options, NULL);
 
-    if (currentOption == -1)
+    if (currentOption == -1) {
+      if (!buffOp) ERRCHOS
       break;
+    }
 
+    buffOp++;
     switch (currentOption) {
       case 'a':
         sleep(1);
         TITLESH
         TITLEDE
         sleep(2);
-        //# TODO:
-        // Check syntax.
-        // Check domain available.
+
+        if (!*(argv + 2)) { ERRFORM exit(0); }
+
+        regcomp(&buffRegex, domain, REG_ICASE | REG_NOSUB | REG_EXTENDED);
+        if (regexec(&buffRegex, *(argv + 2), 0, NULL, 0) == REG_NOMATCH) {
+          regfree(&buffRegex);
+          ERRFORM exit(0);
+        }
+        
         forceUri(*(argv + 2));
         break;
 
@@ -49,8 +62,6 @@ int main (int argc, char **argv)
         UNKNOWO
     }
   }
-
-  if (optind >= argc) ERRCHOS
 
   return 0;
 }
