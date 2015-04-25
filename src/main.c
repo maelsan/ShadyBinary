@@ -40,7 +40,7 @@ int main (int argc, char **argv)
           regfree(&buffRegex);
           ERRFORM exit(0);
         }
-        
+
         forceUri(*(argv + 2));
         break;
 
