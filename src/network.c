@@ -1,9 +1,6 @@
 #include <curl/curl.h>
 #include "../include/network.h"
 
-//# TODO:
-// Add threading for the request.
-
 void forceUri(char *uri)
 {
   CURL *request = curl_easy_init();
