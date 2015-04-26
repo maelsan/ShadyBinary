@@ -13,6 +13,8 @@ void forceUri(char *uri)
   const char *folders[5] = {"/.svn/", "/.git/", "/svn/", "/git/", "/admin/"};
 
   buffResults = 0;
+
+  //# Comb files & extensions.
   for (buffFile = 0; *(files + buffFile); buffFile++) {
     for (buffExt = 0; *(ext + buffExt); buffExt++) {
       char *concatURI = malloc(sizeof(*uri) + sizeof(*(files + buffFile)) + sizeof(*(ext + buffExt)));
@@ -37,6 +39,7 @@ void forceUri(char *uri)
   }
   free(*saveAddr);
 
+  //# Folders.
   for (buffFolder = 0; *(folders + buffFolder); buffFolder++) {
     char *concatURI = malloc(sizeof(*uri) + sizeof(*(folders + buffFolder)));
 
